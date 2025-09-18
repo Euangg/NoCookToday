@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm2gf0i730431"]
+
+[ext_resource type="PackedScene" uid="uid://u3s5gfjw11tg" path="res://element/Bullet/Bullet.tscn" id="1_l4rbg"]
+[ext_resource type="Script" uid="uid://lus5kc206i3i" path="res://element/Bullet/bullet_thirteen.gd" id="2_l4rbg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qyqg"]
+size = Vector2(80, 50)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cua4m"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 25, 1)
+spread = 10.0
+initial_velocity_min = 118.93
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+hue_variation_min = -0.02
+hue_variation_max = 0.02
+
+[node name="Bullet_Thirteen" instance=ExtResource("1_l4rbg")]
+scale = Vector2(1, 1)
+script = ExtResource("2_l4rbg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+position = Vector2(40, 0)
+shape = SubResource("RectangleShape2D_8qyqg")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="1"]
+emitting = false
+amount = 500
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_cua4m")
+
+[node name="Sprite2D" parent="." index="2"]
+texture = null
+
+[node name="Timer" type="Timer" parent="." index="3"]
+wait_time = 0.3
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
