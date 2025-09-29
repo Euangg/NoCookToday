@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnisxcumgx8yb"]
+
+[ext_resource type="PackedScene" uid="uid://cqctkb1uuwngy" path="res://sound/sfx/sfx.tscn" id="1_6ffle"]
+[ext_resource type="AudioStream" uid="uid://cqrlvrqo1cvpp" path="res://sound/sfx/character/sfx_dead2.mp3" id="2_gg55q"]
+
+[node name="SfxDead2" instance=ExtResource("1_6ffle")]
+stream = ExtResource("2_gg55q")
+volume_db = 10.0
+pitch_scale = 2.0

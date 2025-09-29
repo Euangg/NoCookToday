@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://o03d62y565jp"]
+
+[ext_resource type="PackedScene" uid="uid://cqctkb1uuwngy" path="res://sound/sfx/sfx.tscn" id="1_30ijl"]
+[ext_resource type="AudioStream" uid="uid://bdkdm17c5iiye" path="res://sound/sfx/character/sfx_hit.mp3" id="2_nq2pj"]
+
+[node name="SfxHit" instance=ExtResource("1_30ijl")]
+stream = ExtResource("2_nq2pj")
+volume_db = 10.0

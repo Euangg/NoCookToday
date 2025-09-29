@@ -1,10 +1,8 @@
 extends Node2D
-const SFX_DEAD1 = preload("res://sfx/sfx_dead1.tscn")
-const SFX_DEAD2 = preload("res://sfx/sfx_dead2.tscn")
 
 @onready var camera: Camera2D = $Camera2D
-@onready var character1: Player = $Character
-@onready var character2: Player = $Character2
+@onready var player_1: Player = $Character
+@onready var player_2: Player = $Character2
 @onready var node_ammo: Node2D = $NodeAmmo
 @onready var node_particle: Node2D = $NodeParticle
 @onready var node_item: Node2D = $NodeItem
@@ -19,22 +17,33 @@ const SFX_DEAD2 = preload("res://sfx/sfx_dead2.tscn")
 func _ready() -> void:
 	Global.nodeAmmo=node_ammo
 	Global.nodeParticle=node_particle
-	for i in character1.life_:
+	for i in player_1.life_:
 		var pos=Vector2(25+30*i,500)
 		var heart =Global.HEART.instantiate()
 		heart.position=pos
 		ui_p1.add_child(heart)
-	for i in character2.life_:
+	for i in player_2.life_:
 		var pos=Vector2(960-25-30*i,500)
 		var heart =Global.HEART.instantiate()
 		heart.position=pos
 		ui_p2.add_child(heart)
 	ui_end.visibility_changed.connect(onShowUiEnd)
 	ui_end.process_mode=Node.PROCESS_MODE_WHEN_PAUSED
+	var controller_1=Global.CONTROLLER_INPUT.instantiate()
+	controller_1.preset_player_1()
+	player_1.add_child(controller_1)
+	
+	var controller_2
+	if Global.is_pvp:
+		controller_2=Global.CONTROLLER_INPUT.instantiate()
+		controller_2.preset_player_2()
+	else:
+		controller_2=Global.CONTROLLER_AI.instantiate()
+	player_2.add_child(controller_2)
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("esc"):get_tree().change_scene_to_file("res://Theme.tscn")
-	camera.global_position.y=(character1.global_position.y+character2.global_position.y)/2
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("esc"):get_tree().call_deferred("change_scene_to_file","res://Theme.tscn")
+	camera.global_position.y=(player_1.global_position.y+player_2.global_position.y)/2
 	if node_item.get_child_count()>0:pass
 	else:if timer_item.is_stopped():timer_item.start()
 
@@ -44,8 +53,7 @@ func _on_area_2d_dead_zone_body_entered(player: Player) -> void:
 		player.global_position.y=get_viewport_rect().size.y/2
 		player.visible=false
 		player.showGhost=false
-		var sfx=SFX_DEAD2.instantiate()
-		player.add_child(sfx)
+		Global.play_sfx(Global.SFX_DEAD_2)
 		timer_end.start()
 		var winner=0
 		match player.id:
@@ -57,8 +65,7 @@ func _on_area_2d_dead_zone_body_entered(player: Player) -> void:
 			Global.winTimes=1
 	else:	
 		player.global_position=player.spawnPos_
-		var sfx=SFX_DEAD1.instantiate()
-		player.add_child(sfx)
+		Global.play_sfx(Global.SFX_DEAD_1)
 		player.damageAccumulate=0
 		var heart:Heart
 		match player.id:
@@ -78,7 +85,6 @@ func _on_timer_item_timeout() -> void:
 		node_item.add_child(item)
 func _on_timer_end_timeout() -> void:
 	ui_end.visible=true
-
 
 func onShowUiEnd():
 	if ui_end.visible==true:

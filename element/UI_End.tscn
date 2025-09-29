@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://lla4o5q4ix12"]
 
 [ext_resource type="Script" uid="uid://b0at63dpnqj1p" path="res://element/ui_end.gd" id="1_urx4b"]
-[ext_resource type="AudioStream" uid="uid://3105ijaslbl3" path="res://assets/bgm/end.mp3" id="2_6x1i7"]
+[ext_resource type="AudioStream" uid="uid://3105ijaslbl3" path="res://sound/bgm/bgm_end.mp3" id="2_6x1i7"]
 
 [sub_resource type="Animation" id="Animation_urx4b"]
 length = 0.001

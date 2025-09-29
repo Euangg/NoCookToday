@@ -17,4 +17,6 @@ collision_mask = 4
 position = Vector2(576, 324)
 shape = SubResource("RectangleShape2D_2cxxh")
 
+[node name="NodeSfx" type="Node" parent="."]
+
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

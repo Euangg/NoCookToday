@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmbprtxvm61fr"]
+
+[ext_resource type="PackedScene" uid="uid://b4vdgomp6066f" path="res://element/character/controller.tscn" id="1_yvraj"]
+[ext_resource type="Script" uid="uid://b0gpl5jwbvbnh" path="res://element/character/controller_ai.gd" id="2_d808n"]
+
+[node name="ControllerAi" instance=ExtResource("1_yvraj")]
+script = ExtResource("2_d808n")
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+position = Vector2(-5, 0)
+collision_mask = 8

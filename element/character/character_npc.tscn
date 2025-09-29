@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://crson63cnrp3p"]
+
+[ext_resource type="PackedScene" uid="uid://com5pdtauulew" path="res://element/character/Character.tscn" id="1_o8p3l"]
+
+[node name="CharacterNpc" instance=ExtResource("1_o8p3l")]
